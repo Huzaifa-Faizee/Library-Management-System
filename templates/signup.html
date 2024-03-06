@@ -11,11 +11,12 @@
 <body>
     <h1>Sign Up</h1>
     <form action="/signUp" method="post">
-        <input type="text" placeholder="Enter Username" name="u_name">
-        <input type="email" placeholder="Enter Email" name="u_email">
-        <input type="text" placeholder="Enter Password" name="pwd">
+        <input type="text" placeholder="Enter Username" name="u_name" required>
+        <input type="email" placeholder="Enter Email" name="u_email" required>
+        <input type="password" placeholder="Enter Password" name="pwd" required id="pwd">
         <button type="submit">SignUp</button>
     </form>
+    <p>Already Have an Account? <a href="/signIn">Login Here</a></p>
 </body>
 
 </html>
