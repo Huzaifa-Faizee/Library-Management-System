@@ -13,9 +13,34 @@
 
 <body>
     Section Management here
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Created Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for section in sections %}
+            <tr>
+                <td>{{ section.name }}</td>
+                <td> {{ section.created_date }} </td>
+                <td> <button>Edit</button> </td>
+                <td> <button>Delete</button> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">
         Add Section
     </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="addSectionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

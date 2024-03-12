@@ -52,6 +52,13 @@ def signUp():
             db.session.commit()
             return render_template("signin.html")
 
+
+@app.route("/logout")
+def Logout():
+    session.clear()
+    return redirect("/")
+
+
 # =======================Admin Dashboard Code Start========================
 
 
@@ -67,7 +74,47 @@ def Book_Management():
     if session.get("name") != "Admin":
         return redirect("/logout")
     sections = Section.query.all()
-    return render_template("admin/book_management.html", sections=sections)
+    books = Books.query.all()
+    return render_template("admin/book_management.html", sections=sections, books=books)
+
+
+@app.route("/edit-book/<int:book_id>", methods=["GET", "POST"])
+def Edit_Book(book_id):
+    if session.get("name") != "Admin":
+        return redirect("/logout")
+    book = Books.query.filter_by(book_id=book_id).first()
+    if request.method == "GET":
+        sections = Section.query.all()
+        return render_template("/admin/edit_book.html", book=book, sections=sections)
+    elif request.method == "POST":
+        # return "POST METHOD"
+        book.name = request.form.get("b_name")
+        book.author = request.form.get("author")
+        book.issue_time = request.form.get("issue_period")
+        book.genre = request.form.get("genre")
+        # book.section_id = request.form.get("section")
+        book.content = request.form.get("content")
+        db.session.add(book)
+        db.session.commit()
+        return redirect("/book-management")
+    else:
+        return "INCORRECT REQUEST!"
+
+
+@app.route("/delete-book/<int:book_id>")
+def Delete_Book(book_id):
+    if session.get("name") != "Admin":
+        return redirect("/logout")
+    book = Books.query.filter_by(book_id=book_id).first()
+    db.session.delete(book)
+    db.session.commit()
+    return redirect("/book-management")
+
+
+@app.route("/change-book-status/<int:book_id>/<int:status>")
+def Change_Book_Status(book_id):
+    if session.get("name") != "Admin":
+        return redirect("/logout")
 
 
 @app.route('/add-book', methods=["POST"])
@@ -102,9 +149,9 @@ def Add_Book():
 def Section_Management():
     if session.get("name") != "Admin":
         return redirect("/logout")
-
+    sections = Section.query.all()
     today_date = datetime.date.today()
-    return render_template("admin/section_management.html", today_date=today_date)
+    return render_template("admin/section_management.html", sections=sections, today_date=today_date)
 
 
 @app.route('/add-section', methods=["POST"])
@@ -143,11 +190,7 @@ def Statistics():
 
 # =======================Admin Dashboard Code End========================
 
-
-@app.route("/logout")
-def Logout():
-    session.clear()
-    return redirect("/")
+# =======================User Dashboard Code Start========================
 
 
 @app.route("/user")
@@ -155,3 +198,5 @@ def User_Dashboard():
     if not session.get("name"):
         return redirect("/logout")
     return render_template("user_dashboard.html")
+
+# =======================User Dashboard Code End========================

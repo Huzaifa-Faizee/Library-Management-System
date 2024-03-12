@@ -15,9 +15,44 @@
 
 <body>
     Book Management here
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Issue Time Period</th>
+                <th>Can be Issued</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.name }}</td>
+                <td> {{ book.author }} </td>
+                <td> {{ book.genre }} </td>
+                <td> {{ book.issue_time }} Days</td>
+                {% if book.status==1 %}
+                <td> <a href="/change-book-status/{{book.book_id}}/0"><button>Hide Book</button></a> </td>
+                {% else %}
+                <td><a href="change-book-status/{{book.book_id}}/1"><button>Show Book</button></a></td>
+                {% endif %}
+                <td> <a href="/edit-book/{{book.book_id}}"><button>Edit</button> </a></td>
+                <td> <a href="/delete-book/{{book.book_id}}"><button>Delete</button> </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
         Add Book
     </button>
+
 
     <!-- Modal -->
     <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
