@@ -1,9 +1,7 @@
 from flask import Flask, render_template, redirect, request, session
 from flask import current_app as app
 from .models import *
-
-
-# import datetime
+import datetime
 
 
 @app.route('/')
@@ -64,34 +62,70 @@ def Admin():
     return render_template("admin/admin_dashboard.html")
 
 
-@app.route('/book_management')
+@app.route('/book-management')
 def Book_Management():
     if session.get("name") != "Admin":
         return redirect("/logout")
-    return render_template("admin/book_management.html")
+    sections = Section.query.all()
+    return render_template("admin/book_management.html", sections=sections)
 
 
 @app.route('/add-book', methods=["POST"])
 def Add_Book():
     if session.get("name") != "Admin":
         return redirect("/logout")
+    if request.method == "POST":
+        b_name = request.form.get("b_name")
+        author = request.form.get("author")
+        issue_time = request.form.get("issue_period")
+        genre = request.form.get("genre")
+        section = request.form.get("section")
+        content = request.form.get("content")
+        file = request.files['pdf']
 
-    return redirect("/book_management")
+        if file:
+            filename = file.filename
+            file.save("uploads/"+filename)
+        this_book = Books.query.filter_by(name=b_name).first()
+        if this_book:
+            return "Book Already Exists!"
+        else:
+            new_book = Books(name=b_name, author=author, issue_time=issue_time,
+                             genre=genre, section_id=section, content=content, pdf=filename)
+            db.session.add(new_book)
+            db.session.commit()
+
+    return redirect("/book-management")
 
 
-@app.route('/section_management')
+@app.route('/section-management')
 def Section_Management():
     if session.get("name") != "Admin":
         return redirect("/logout")
-    return render_template("admin/section_management.html")
+
+    today_date = datetime.date.today()
+    return render_template("admin/section_management.html", today_date=today_date)
 
 
 @app.route('/add-section', methods=["POST"])
 def Add_Section():
     if session.get("name") != "Admin":
         return redirect("/logout")
+    if request.method == "POST":
+        s_name = request.form.get("s_name")
+        s_desc = request.form.get("s_desc")
+        created_date = datetime.date.today()
+        this_section = Section.query.filter_by(name=s_name).first()
+        if this_section:
+            return "Section Already Exists!"
+        else:
+            new_section = Section(
+                name=s_name, description=s_desc, created_date=created_date)
+            db.session.add(new_section)
+            db.session.commit()
+        print(s_name, s_desc, created_date)
 
-    return redirect("/book_section")
+        return redirect("/section-management")
 
 
 @app.route('/requests')
