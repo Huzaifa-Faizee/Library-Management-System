@@ -1,1 +1,73 @@
-Requests Seen here
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requests</title>
+</head>
+
+<body>
+    {% include "includes.html" %}
+    {% include "admin/admin_nav.html" %}
+
+    <h1>Requests</h1>
+
+    <h4>Pending: </h4>
+    {% if pending_requests|length >0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Book</th>
+                <th>No Of Days</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in pending_requests %}
+            <tr>
+                <td>{{ request.user.user_name }}</td>
+                <td>{{ request.book.name }} </td>
+                <td>{{ request.book.issue_time }} Days</td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/accepted"><button>Accept</button></a></td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/rejected"><button>Reject</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h5>No pending requests</h5>
+    {% endif %}
+    <h3>Accepted: </h3>
+    {% if accepted_requests|length >0 %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Book</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Revoke</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in accepted_requests %}
+            <tr>
+                <td>{{ request.user.user_name }}</td>
+                <td>{{ request.book.name }} </td>
+                <td>{{ request.issue_date }}</td>
+                <td>{{ request.end_date }}</td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/revoked"><button>Revoke</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h5>No accepted requests</h5>
+    {% endif %}
+</body>
+
+</html>

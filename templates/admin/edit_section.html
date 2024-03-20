@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    {% include "includes.html" %}
+
+</head>
+
+<body>
+    Edit Section
+    <a href="/section-management"><button>Back</button></a>
+
+    <form action="/edit-section/{{section.section_id}}" method="post" enctype="multipart/form-data">
+
+        <label for="s_name">Name:</label>
+        <input type="text" name="s_name" id="" value="{{section.name}}"> <br>
+
+        <label for="desc">Description:</label>
+        <textarea type="text" name="desc" id="" rows="2">{{section.description}}</textarea>
+
+        <button type="submit" class="btn btn-primary">Edit</button>
+
+    </form>
+
+</body>
+
+</html>

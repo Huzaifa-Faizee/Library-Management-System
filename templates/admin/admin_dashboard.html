@@ -1,10 +1,3 @@
-<header>
-    <ul>
-        <li><a href="/statistics">Stats</a></li>
-        <li><a href="/requests">Requests</a></li>
-        <li><a href="/section-management">Sections</a></li>
-        <li><a href="/book-management">Books</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
-</header>
+{% include "includes.html" %}
+{% include "admin/admin_nav.html" %}
 Hello {{session.name}}

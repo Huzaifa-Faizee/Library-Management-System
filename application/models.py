@@ -17,6 +17,7 @@ class Books(db.Model):
     issue_time = db.Column(db.Integer(), nullable=False)
     genre = db.Column(db.String())
     pdf = db.Column(db.String())
+    image = db.Column(db.String())
     content = db.Column(db.String())
     section_id = db.Column(db.Integer(), ForeignKey('section.section_id'))
     status = db.Column(db.Integer(), nullable=False, default=1)
@@ -37,5 +38,6 @@ class Book_Issues(db.Model):
 class Section(db.Model):
     section_id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(), nullable=False, unique=True)
+    image = db.Column(db.String(), nullable=False)
     created_date = db.Column(db.Date())
     description = db.Column(db.String())

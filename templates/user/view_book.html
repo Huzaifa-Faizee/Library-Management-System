@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.name }}</title>
+    <style>
+        img {
+            max-width: 100%;
+            max-height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+    {% include "user/user_nav.html" %}
+    <div class="row">
+        <div class="col">
+            <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
+        </div>
+        <div class="col">
+            <h1>{{ book.name }}</h1>
+            {% if (issued_book_count == 5 and book_issue.status!="accepted")  %}
+                <p>You have reached your book issue limit, please return one book to gain access to this book</p>
+            {% else %}
+                {% if book_issue==None %}
+                <a href="/issue-book/{{ book.book_id }}/pending"><button>Request Access</button></a>
+                {% elif book_issue.status=="pending" %}
+                <button>Waiting for Librarian Approval</button>
+                <p>Request Sent to Librarian</p>
+                {% elif book_issue.status=="revoked" %}
+                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
+                <p>Your Previous access was <b>revoked</b>, You can send a re-request</p>
+                {% elif book_issue.status=="rejected" %}
+                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
+                <p>Your Previous access was <b>rejected</b>, You can send a re-request</p>
+                {% elif book_issue.status=="completed" %}
+                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
+                <p>Your Reading term for book is <b>completed</b>, You can send a re-request</p>
+                {% elif book_issue.status=="accepted" %}
+                <a href="/read/{{ book.book_id }}"><button>Read</button></a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h1>About the book</h1>
+            <p>{{book.content}}</p>
+        </div>
+    </div>
+</body>
+
+</html>

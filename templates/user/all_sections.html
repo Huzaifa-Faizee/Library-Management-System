@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sections</title>
+</head>
+
+<body>
+    {% include "user/user_nav.html" %}
+
+    <h1>Sections</h1>
+    {% for sect in sections %}
+    <div class="card" style="width: 18rem;">
+        <img src="../../static/uploads/{{ sect.image }}" class="card-img-top" alt="{{sect.image}}">
+        <div class="card-body">
+          <h5 class="card-title">{{ sect.name }}</h5>
+          <p class="card-text">{{ sect.description }}</p>
+          <a href="/section-books/{{ sect.section_id }}" class="btn btn-primary">View Books</a>
+        </div>
+      </div>
+    {% endfor %}
+</body>
+
+</html>
