@@ -5,19 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    {% include "includes.html" %}
     <link rel="stylesheet" href="../static/signin.css">
+
 </head>
 
 <body>
-    <a href="/"><button>home</button></a>
-    <h1>Sign Up</h1>
-    <form action="/signUp" method="post">
-        <input type="text" placeholder="Enter Username" name="u_name" required>
-        <input type="email" placeholder="Enter Email" name="u_email" required>
-        <input type="password" placeholder="Enter Password" name="pwd" required id="pwd">
-        <button type="submit">SignUp</button>
-    </form>
-    <p>Already Have an Account? <a href="/signIn">Login Here</a></p>
+    <div class="form-container">
+        <form action="/signUp" method="post">
+            <div class="heading">
+                <h1>Sign Up</h1>
+            </div>
+            <label for="u_name" class="form-label">Name:</label>
+            <input type="text" placeholder="Enter Username" name="u_name" required class="form-control">
+            <label for="u_email" class="form-label">Email:</label>
+            <input type="email" placeholder="Enter Email" name="u_email" required class="form-control">
+            <label for="" class="form-label"></label>
+            <input type="password" placeholder="Enter Password" name="pwd" required id="pwd" class="form-control">
+            <div class="form-button">
+                <button type="submit" class="btn btn-primary">SignUp</button>
+            </div>
+            <div class="route">
+                Already Have an Account? <a href="/signIn">Login Here</a> | <a href="/">Go Home</a>
+            </div>
+            
+        </form>
+    </div>
 </body>
 
 </html>

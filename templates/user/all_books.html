@@ -5,18 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Books</title>
-<style>
-    img{
-        max-width: 100px;
-        max-height: 100px;
-    }
-</style>
 </head>
 
 <body>
     {% include "user/user_nav.html" %}
-
-    <h1>All Books</h1>
+    <div class="heading">
+        <h1>All Books</h1>
+    </div>
     <div class="all-books">
         {% for book in books %}
         <div class="book-card">
@@ -24,9 +19,13 @@
                 <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
             </div>
             <div class="book-details">
-                <h4>{{ book.name }}</h4>
-                <p>{{ book.author }}</p>
-                <a href="/view-book/{{book.book_id}}"> <button>View Book</button></a>
+                <h4 class="book-name">{{ book.name }}</h4>
+                <div class="book-author">{{ book.author }}</div>
+                <div class="book-genre">Genre: {{book.genre}}</div>
+                <div class="book-time">Issued For: <b>{{book.issue_time}} Days</b></div>
+                <div class="book-button">
+                    <a href="/view-book/{{book.book_id}}"> <button class="btn btn-primary">View Book</button></a>
+                </div>
             </div>
         </div>
         {% endfor %}

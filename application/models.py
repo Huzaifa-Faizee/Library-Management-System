@@ -41,3 +41,13 @@ class Section(db.Model):
     image = db.Column(db.String(), nullable=False)
     created_date = db.Column(db.Date())
     description = db.Column(db.String())
+
+
+class Reviews(db.Model):
+    review_id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), ForeignKey('user.user_id'))
+    book_id = db.Column(db.Integer(), ForeignKey('books.book_id'))
+    content = db.Column(db.String())
+    date = db.Column(db.Date())
+    user = relationship("User", backref="reviewed_by_user")
+    book = relationship("Books", backref="reviwed_for_book")

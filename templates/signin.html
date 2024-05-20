@@ -5,27 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
+    {% include "includes.html" %}
+
     <link rel="stylesheet" href="../static/signin.css">
 </head>
 
 <body>
-    <a href="/"><button>home</button></a>
     <div class="form-container">
-        <h1>Login</h1>
         <form action="/signIn" method="post">
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" placeholder="Enter Email" name="u_email" required>
+            <div class="heading">
+                <h1>Login</h1>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" placeholder="Enter Password" name="pwd" required>
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" placeholder="Enter Email" name="u_email" required class="form-control">
+            </div>
+            <div>
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" placeholder="Enter Password" name="pwd" required class="form-control">
+            </div>
+            <div class="form-button">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="route">
+                New here? <a href="/signUp">Create Your Account!</a> | <a href="/">Go Home</a>
             </div>
 
-            <button type="submit">Login</button>
         </form>
     </div>
-    New here? <a href="/signUp">Create Your Account!</a>
 </body>
 
 </html>

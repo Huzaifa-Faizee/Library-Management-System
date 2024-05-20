@@ -1,5 +1,4 @@
-<!-- Book Management here 
-<button>Add Book</button> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,36 +11,41 @@
 </head>
 
 <body>
-{% include "admin/admin_nav.html" %}
-
-    Book Management here
-
-    <table>
+    {% include "admin/admin_nav.html" %}
+    <div class="heading">
+        <h3>Book Management</h3>
+    </div>
+    <div class="add">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addBookModal">
+            Add Book
+        </button>
+    </div>
+    <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Author</th>
-                <th>Genre</th>
-                <th>Issue Time Period</th>
-                <th>Can be Issued</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Issue Time Period</th>
+                <!-- <th scope="col">Can be Issued</th> -->
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for book in books %}
             <tr>
-                <td>{{ book.name }}</td>
+                <td scope="row">{{ book.name }}</td>
                 <td> {{ book.author }} </td>
                 <td> {{ book.genre }} </td>
-                <td> {{ book.issue_time }} Days</td>
-                {% if book.status==1 %}
+                <td style="font-family: 'Roboto';"> {{ book.issue_time }} Days</td>
+                <!-- {% if book.status==1 %}
                 <td> <a href="/change-book-status/{{book.book_id}}/0"><button>Hide Book</button></a> </td>
                 {% else %}
                 <td><a href="change-book-status/{{book.book_id}}/1"><button>Show Book</button></a></td>
-                {% endif %}
-                <td> <a href="/edit-book/{{book.book_id}}"><button>Edit</button> </a></td>
-                <td> <a href="/delete-book/{{book.book_id}}"><button>Delete</button> </a></td>
+                {% endif %} -->
+                <td> <a href="/edit-book/{{book.book_id}}"><button class="btn btn-primary">Edit</button> </a></td>
+                <td> <a href="/delete-book/{{book.book_id}}"><button class="btn btn-danger">Delete</button> </a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -49,9 +53,7 @@
 
 
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookModal">
-        Add Book
-    </button>
+
 
 
     <!-- Modal -->
@@ -62,42 +64,57 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Add Book</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/add-book" method="post" enctype="multipart/form-data">
+                <form action="/add-book" method="post" enctype="multipart/form-data" autocomplete="off">
                     <div class="modal-body">
-                        <label for="b_name">Name:</label>
-                        <input type="text" name="b_name" id=""><br>
-
-                        <label for="author">Author:</label>
-                        <input type="text" name="author" id=""><br>
-
-                        <label for="issue_period">Issue Time Period:</label>
-                        <input type="number" name="issue_period" id=""><br>
-
-                        <label for="genre">Genre:</label>
-                        <input type="text" name="genre" id=""><br>
-
-                        <label for="section">Section:</label>
-                        <select name="section" id="">
-                            <option value="null" disabled selected>Select Section</option>
-                            {% for section in sections %}
-                            <option value="{{section.section_id}}">{{section.name}}</option>
-                            {% endfor %}
-                        </select>
-
-                        <label for="content">Content:</label>
-                        <textarea type="text" name="content" id="" rows="2"></textarea>
-
-                        <label for="pdf">PDF:</label>
-                        <input type="file" name="pdf" id="pdf"><br>
-
-                        <label for="image">Image:</label>
-                        <input type="file" name="image" id="image"><br>
-
-
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label" for="b_name">Name:</label>
+                                <input type="text" name="b_name" id="" class="form-control" placeholder="Enter Name">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="author">Author:</label>
+                                <input type="text" name="author" id="" class="form-control" placeholder="Enter Author">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label" for="issue_period">Issue Time Period:</label>
+                                <input type="number" name="issue_period" id="" class="form-control" placeholder="Enter Days">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="genre">Genre:</label>
+                                <input type="text" name="genre" id="" class="form-control" placeholder="Enter Genre">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="form-label" for="section">Section:</label>
+                                <select name="section" id="" class="form-control">
+                                    <option value="null" disabled selected>Select Section</option>
+                                    {% for section in sections %}
+                                    <option value="{{section.section_id}}">{{section.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label" for="pdf">PDF:</label>
+                                <input type="file" name="pdf" id="pdf" class="form-control">
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label" for="image">Image:</label>
+                                <input type="file" name="image" id="image" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label" for="content">Content:</label>
+                                <textarea type="text" name="content" id="" class="form-control"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Book</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Add Book</button>
                     </div>
                 </form>
             </div>

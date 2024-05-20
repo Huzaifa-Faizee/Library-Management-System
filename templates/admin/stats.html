@@ -1,5 +1,34 @@
-{% include "includes.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% include "admin/admin_nav.html" %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include "includes.html" %}
+</head>
 
-Statistics seen here
+<body>
+    {% include "admin/admin_nav.html" %}
+    <div class="heading">
+        <h2>Total Books Read Count</h2>
+    </div>
+    <div class="stats-image">
+        <img src="../../static/images/book_read_count.png" alt="issues">
+    </div>
+    <div class="heading">
+        <h2>Sections Visited Count</h2>
+    </div>
+    <div class="stats-image">
+        <img src="../../static/images/section_read_count.png" alt="issues">
+    </div>
+    <!-- <div class="heading">
+        <h2>Active books count</h2>
+    </div>
+    <div class="stats-image">
+        <img src="../../static/images/ongoing_read_count.png" alt="issues">
+    </div> -->
+
+</body>
+
+</html>

@@ -1,3 +1,28 @@
+
+body {
+    background-color: var(--topic-red);
+}
+
 .form-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container form {
+    background-color: white;
+    padding: 40px;
+    border: 1px solid lightgrey;
+    box-shadow: 5px 10px;
+}
+
+.form-button {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.route {
     text-align: center;
 }

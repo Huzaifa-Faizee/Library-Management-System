@@ -5,50 +5,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ book.name }}</title>
-    <style>
-        img {
-            max-width: 100%;
-            max-height: 400px;
-        }
-    </style>
-
+    <link rel="stylesheet" href="/static/view-book.css">
 </head>
 
 <body>
     {% include "user/user_nav.html" %}
-    <div class="row">
-        <div class="col">
-            <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
+    <div class="book-data">
+        <div class="row">
+            <div class="col">
+                <div class="heading">
+                    <h1>{{ book.name }}</h1>
+                    <div class="author">By {{ book.author }}</div>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <h1>{{ book.name }}</h1>
-            {% if (issued_book_count == 5 and book_issue.status!="accepted")  %}
-                <p>You have reached your book issue limit, please return one book to gain access to this book</p>
-            {% else %}
-                {% if book_issue==None %}
-                <a href="/issue-book/{{ book.book_id }}/pending"><button>Request Access</button></a>
-                {% elif book_issue.status=="pending" %}
-                <button>Waiting for Librarian Approval</button>
-                <p>Request Sent to Librarian</p>
-                {% elif book_issue.status=="revoked" %}
-                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
-                <p>Your Previous access was <b>revoked</b>, You can send a re-request</p>
-                {% elif book_issue.status=="rejected" %}
-                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
-                <p>Your Previous access was <b>rejected</b>, You can send a re-request</p>
-                {% elif book_issue.status=="completed" %}
-                <a href="/reissue-book/{{ book.book_id }}/pending"><button>Request Again</button></a>
-                <p>Your Reading term for book is <b>completed</b>, You can send a re-request</p>
-                {% elif book_issue.status=="accepted" %}
-                <a href="/read/{{ book.book_id }}"><button>Read</button></a>
-                {% endif %}
-            {% endif %}
+        <div class="row">
+
+            <div class="col-3 book-image">
+                <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    <div class="col-8">
+                        {% if (issued_book_count == 5 and book_issue.status!="accepted") %}
+                        <b>You have reached your book issue limit, please return one book to gain access to this
+                            book</b>
+                        {% else %}
+                        {% if book_issue==None %}
+                        <a href="/issue-book/{{ book.book_id }}/pending"><button class="btn btn-success">Request
+                                Access</button></a>
+                        {% elif book_issue.status=="pending" %}
+                        <button class="btn btn-secondary">Waiting for Librarian Approval</button>
+                        <p class="status-message">Request Sent to Librarian</p>
+                        {% elif book_issue.status=="revoked" %}
+                        <a href="/reissue-book/{{ book.book_id }}/pending"><button class="btn btn-warning">Request
+                                Again</button></a>
+                        <p class="status-message">Your Previous access was <b>revoked</b>, You can send a re-request</p>
+                        {% elif book_issue.status=="rejected" %}
+                        <a href="/reissue-book/{{ book.book_id }}/pending"><button class="btn btn-warning">Request
+                                Again</button></a>
+                        <p class="status-message">Your Previous access was <b>rejected</b>, You can send a re-request
+                        </p>
+                        {% elif book_issue.status=="completed" %}
+                        <a href="/reissue-book/{{ book.book_id }}/pending"><button class="btn btn-warning">Request
+                                Again</button></a>
+                        <p class="status-message">Your Reading term for book is <b>completed</b>, You can send a
+                            re-request</p>
+                        {% elif book_issue.status=="accepted" %}
+                        <a href="/read/{{ book.book_id }}"><button class="btn btn-primary">Read Book</button></a>
+                        <div class="book-time">Issued For: <b>{{book.issue_time}} Days</b></div>
+                        <div class="book-start">Start Date: <b>{{book_issue.issue_date}}</b></div>
+                        <div class="book-end">End Date: <b>{{book_issue.end_date}}</b></div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="col-4">
+                        <p>Genre: <b>{{ book.genre }}</b></p>
+                        <p>Section: <b>{{ book.section.name }}</b></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="about-book">
+                    <p>{{book.content}}</p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h1>About the book</h1>
-            <p>{{book.content}}</p>
+        <div class="row">
+            <hr class="page-divide">
+        </div>
+        <div class="reviews">
+            <div class="row ">
+                <div class="heading">
+                    <h3>Reviews</h3>
+                </div>
+                <div class="write-review">
+                    <form action="/review/{{book.book_id}}" method="post">
+                        <label class="form-label">Write a review</label>
+                        <input type="text" class="form-control" name="content">
+                        <div class="submit">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <hr class="page-divide">
+            </div> -->
+            <div class="row">
+                <div class="heading">
+                    <h5>User Reviews</h5>
+                </div>
+                <div class="user-reviews">
+                    {% for review in reviews %}
+                    <div class="review">
+                        <div class="reviewer">
+                            {{review.user.user_name}} - <span class="date">2024/01/02</span>
+                        </div>
+                        <div class="review-content">
+                            "{{review.content}}"
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </body>

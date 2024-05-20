@@ -1,2 +1,34 @@
-{% include "user/user_nav.html" %}
-User Stats
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+
+<body>
+    {% include "user/user_nav.html" %}
+    <div class="heading">
+        <h1>User Stats</h1>
+    </div>
+    <div class="stats-data">
+        <div class="stats-box">
+            Books read : <b>{{ books_read }}</b>
+        </div>
+        <div class="stats-box">
+            Currently Reading: <b>{{ currently_reading }}</b>
+        </div>
+        <div class="stats-box">
+            Requested: <b>{{ requested }}</b>
+        </div>
+    </div>
+    <div class="heading">
+        <h2>Genre Read</h2>
+    </div>
+    <div class="stats-image">
+        <img src="../../static/images/genre_count.png" alt="">
+    </div>
+</body>
+
+</html>

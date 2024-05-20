@@ -1,2 +1,110 @@
-{% include "user/user_nav.html" %}
-User Dashboard Hello {{session.name}} {{session.user_id}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{User}}</title>
+</head>
+
+<body>
+    {% include "user/user_nav.html" %}
+    <div class="heading">
+        <h1>Welcome to Smart Library {{session.name}}!</h1>
+    </div>
+    <div class="books-display">
+        <div class="trending">
+            <div class="heading-book">
+                <h3>Trending</h3>
+               <a href="/all-books"> <button class="btn btn-warning">View All Books</button></a>
+            </div>
+            <div class="row">
+                <hr class="page-divide">
+            </div>
+            <div class="books">
+                <div class="all-books">
+                    {% for book in trending %}
+                    <div class="book-card">
+                        <div class="book-image">
+                            <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
+                        </div>
+                        <div class="book-details">
+                            <h4 class="book-name">{{ book.name }}</h4>
+                            <div class="book-author">{{ book.author }}</div>
+                            <div class="book-genre">Genre: {{book.genre}}</div>
+                            <div class="book-time">Issued For: <b>{{book.issue_time}} Days</b></div>
+                            <div class="book-button">
+                                <a href="/view-book/{{book.book_id}}"> <button class="btn btn-primary">View
+                                        Book</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="new-release">
+            <div class="heading-book">
+                <h3>New Releases</h3>
+               <a href="/all-books"> <button class="btn btn-warning">View All Books</button></a>
+            </div>
+            <div class="row">
+                <hr class="page-divide">
+            </div>
+            <div class="books">
+                <div class="all-books">
+                    {% for book in new_added %}
+                    <div class="book-card">
+                        <div class="book-image">
+                            <img src="../../static/uploads/{{ book.image }}" alt="{{ book.image }}">
+                        </div>
+                        <div class="book-details">
+                            <h4 class="book-name">{{ book.name }}</h4>
+                            <div class="book-author">{{ book.author }}</div>
+                            <div class="book-genre">Genre: {{book.genre}}</div>
+                            <div class="book-time">Issued For: <b>{{book.issue_time}} Days</b></div>
+                            <div class="book-button">
+                                <a href="/view-book/{{book.book_id}}"> <button class="btn btn-primary">View
+                                        Book</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="sections">
+            <div class="heading-book">
+                <h3>Sections</h3>
+               <a href="/all-sections"> <button class="btn btn-warning">View All Sections</button></a>
+            </div>
+            <div class="row">
+                <hr class="page-divide">
+            </div>
+            <div class="books">
+                <div class="all-sections">
+                    {% for sect in sections %}
+                    <div class="section-card">
+                        <img src="../../static/uploads/{{ sect.image }}" class="card-img-top" alt="{{sect.image}}">
+                        <div class="section-overlay">
+                            <div class="section-details">
+                                <h2>{{ sect.name }}</h2>
+                                <a href="/section-books/{{ sect.section_id }}" class="btn btn-warning">View
+                                    Books</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

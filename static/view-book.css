@@ -1,0 +1,68 @@
+.book-data {
+    padding: 30px 100px;
+}
+
+.book-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.book-start b {
+    color: darkgreen;
+}
+
+.book-end b {
+    color: red;
+}
+
+.heading {
+    text-align: left !important;
+}
+
+.heading h1 {
+    margin-bottom: 0px !important;
+}
+
+.heading .author {
+    color: grey;
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.page-divide {
+    border-top: 1.5px solid var(--topic-red);
+}
+
+.status-message {
+    margin: 10px;
+    color: grey;
+}
+
+.status-message b {
+    color: var(--topic-red);
+}
+
+.review {
+    margin-bottom: 20px;
+}
+
+.write-review .submit {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.reviewer {
+    font-size: 17px;
+    color: grey;
+    font-weight: 800;
+}
+
+.review-content {
+    margin: 10px;
+    font-size: 20px;
+}
+
+.date {
+    font-size: 15px;
+}

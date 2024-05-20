@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    {% include "includes.html" %}
+</head>
+
+<body>
+    {% include "admin/admin_nav.html" %}
+    {% if book_name|length >0 %}
+    <div class="heading">
+        <h2>Book Results By Name</h2>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Issue Time Period</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in book_name %}
+            <tr>
+                <td scope="row">{{ book.name }}</td>
+                <td> {{ book.author }} </td>
+                <td> {{ book.genre }} </td>
+                <td> {{ book.issue_time }} Days</td>
+                <td> <a href="/edit-book/{{book.book_id}}"><button class="btn btn-primary">Edit</button> </a></td>
+                <td> <a href="/delete-book/{{book.book_id}}"><button class="btn btn-danger">Delete</button> </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if book_author|length >0 %}
+    <div class="heading">
+        <h2>Book Results By Author</h2>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Issue Time Period</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in book_author %}
+            <tr>
+                <td scope="row">{{ book.name }}</td>
+                <td> {{ book.author }} </td>
+                <td> {{ book.genre }} </td>
+                <td> {{ book.issue_time }} Days</td>
+                <td> <a href="/edit-book/{{book.book_id}}"><button class="btn btn-primary">Edit</button> </a></td>
+                <td> <a href="/delete-book/{{book.book_id}}"><button class="btn btn-danger">Delete</button> </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if book_genre|length >0 %}
+    <div class="heading">
+        <h2>Book Results By Genre</h2>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Issue Time Period</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in book_genre %}
+            <tr>
+                <td scope="row">{{ book.name }}</td>
+                <td> {{ book.author }} </td>
+                <td> {{ book.genre }} </td>
+                <td> {{ book.issue_time }} Days</td>
+                <td> <a href="/edit-book/{{book.book_id}}"><button class="btn btn-primary">Edit</button> </a></td>
+                <td> <a href="/delete-book/{{book.book_id}}"><button class="btn btn-danger">Delete</button> </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% if section_name|length >0 %}
+    <div class="heading">
+        <h2>Sections</h2>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for section in section_name %}
+            <tr>
+                <td scope="row">{{ section.name }}</td>
+                <td> {{ section.created_date }} </td>
+                <td> <a href="/edit-section/{{section.section_id}}"><button class="btn btn-primary">Edit</button> </a></td>
+                <td> <a href="/delete-section/{{section.section_id}}"><button class="btn btn-danger">Delete</button> </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+
+</html>

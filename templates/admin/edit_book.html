@@ -10,38 +10,44 @@
 </head>
 
 <body>
-    Edit Book
-    <a href="/book-management"><button>Back</button></a>
+    <div class="main-nav">
+        Smart Library - Admin
+    </div>
+    <div class="heading">
+        <h3>Edit Book Details</h3>
+    </div>
+    <div class="add">
+        <a href="/book-management"><button class="btn btn-primary">Back</button></a>
+    </div>
 
-    <form action="/edit-book/{{book.book_id}}" method="post" enctype="multipart/form-data">
-
-        <label for="b_name">Name:</label>
-        <input type="text" name="b_name" id="" value="{{book.name}}"> <br>
-
-        <label for="author">Author:</label>
-        <input type="text" name="author" id="" value="{{book.author}}"><br>
-
-        <label for="issue_period">Issue Time Period:</label>
-        <input type="number" name="issue_period" id="" value="{{book.issue_time}}"><br>
-
-        <label for="genre">Genre:</label>
-        <input type="text" name="genre" id="" value="{{book.genre}}"><br>
-
-        <!-- <label for="section">Section:</label>
-        <select name="section" id="">
-            <option value="null" disabled>Select Section</option>
-            {% for section in sections %}
-            <option value="{{section.section_id}}" {% if book.section_id == "section.section_id" %} selected {% endif %}>{{section.name}}</option>
-            {% endfor %}
-        </select> -->
-
-        <label for="content">Content:</label>
-        <textarea type="text" name="content" id="" rows="2">{{book.content}}</textarea>
-
-        <!-- <label for="pdf">PDF:</label>
-        <input type="file" name="pdf" id="pdf" ><br> -->
-
-        <button type="submit" class="btn btn-primary">Edit</button>
+    <form action="/edit-book/{{book.book_id}}" method="post" enctype="multipart/form-data" class="form">
+        <div class="row">
+            <div class="col">
+                <label for="b_name" class="form-label">Name:</label>
+                <input type="text" name="b_name" id="" value="{{book.name}}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="author" class="form-label">Author:</label>
+                <input type="text" name="author" id="" value="{{book.author}}" class="form-control"><br>
+            </div>
+            <div class="col">
+                <label for="issue_period" class="form-label">Issue Time Period:</label>
+                <input type="number" name="issue_period" id="" value="{{book.issue_time}}" class="form-control"><br>
+            </div>
+            <div class="col">
+                <label for="genre" class="form-label">Genre:</label>
+                <input type="text" name="genre" id="" value="{{book.genre}}" class="form-control"><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="content" class="form-label">Content:</label>
+                <textarea type="text" name="content" id="" class="form-control">{{book.content}}</textarea>
+            </div>
+        </div>
+        <div class="submit-section">
+            <button type="submit" class="btn btn-success">Edit</button>
+        </div>
 
     </form>
 

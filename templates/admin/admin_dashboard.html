@@ -1,3 +1,33 @@
-{% include "includes.html" %}
-{% include "admin/admin_nav.html" %}
-Hello {{session.name}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    {% include "includes.html" %}
+</head>
+<body>
+    {% include "admin/admin_nav.html" %}
+    <div class="heading">
+        <h1>Welcome Admin</h1>
+    </div>
+    <div class="stats-data">
+        <div class="stats-box">
+            Total Users : <b>{{ users }}</b>
+        </div>
+        <div class="stats-box">
+            Total Sections: <b>{{ sections }}</b>
+            <a href="/section-management"><button class="btn btn-warning">View Sections</button></a>
+        </div>
+        <div class="stats-box">
+            Total Books: <b>{{ books }}</b>
+            <a href="/book-management"><button class="btn btn-warning">View Books</button></a>
+        </div>
+        <div class="stats-box">
+            Pending Requests: <b>{{ pending_requests }}</b>
+            <a href="/requests"><button class="btn btn-warning">View Requests</button></a>
+        </div>
+    </div>
+    
+</body>
+</html>

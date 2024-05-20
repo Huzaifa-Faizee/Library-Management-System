@@ -10,64 +10,153 @@
 <body>
     {% include "includes.html" %}
     {% include "admin/admin_nav.html" %}
-
-    <h1>Requests</h1>
-
-    <h4>Pending: </h4>
+    <div class="heading">
+        <h2>Requests</h2>
+    </div>
+    <div class="subheading">
+        Pending:
+    </div>
     {% if pending_requests|length >0 %}
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>User</th>
-                <th>Book</th>
-                <th>No Of Days</th>
-                <th>Accept</th>
-                <th>Reject</th>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">No Of Days</th>
+                <th scope="col">Accept</th>
+                <th scope="col">Reject</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for request in pending_requests %}
             <tr>
-                <td>{{ request.user.user_name }}</td>
+                <td scope="row">{{ request.user.user_name }}</td>
                 <td>{{ request.book.name }} </td>
                 <td>{{ request.book.issue_time }} Days</td>
-                <td><a href="/edit-issue-status/{{request.issue_id}}/accepted"><button>Accept</button></a></td>
-                <td><a href="/edit-issue-status/{{request.issue_id}}/rejected"><button>Reject</button></a></td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/accepted"><button
+                            class="btn btn-success">Accept</button></a></td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/rejected"><button
+                            class="btn btn-danger">Reject</button></a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     {% else %}
-    <h5>No pending requests</h5>
+    <h5 class="sub-message">No pending requests</h5>
     {% endif %}
-    <h3>Accepted: </h3>
-    {% if accepted_requests|length >0 %}
 
-    <table>
+    {% if accepted_requests|length >0 %}
+    <div class="subheading">
+        Accepted:
+    </div>
+
+    <table class="table">
         <thead>
             <tr>
-                <th>User</th>
-                <th>Book</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Revoke</th>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Revoke</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for request in accepted_requests %}
             <tr>
-                <td>{{ request.user.user_name }}</td>
+                <td scope="row">{{ request.user.user_name }}</td>
                 <td>{{ request.book.name }} </td>
                 <td>{{ request.issue_date }}</td>
                 <td>{{ request.end_date }}</td>
-                <td><a href="/edit-issue-status/{{request.issue_id}}/revoked"><button>Revoke</button></a></td>
+                <td><a href="/edit-issue-status/{{request.issue_id}}/revoked"><button
+                            class="btn btn-warning">Revoke</button></a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
-    <h5>No accepted requests</h5>
     {% endif %}
+
+
+    {% if completed_requests|length >0 %}
+    <div class="subheading">
+        Completed:
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for request in completed_requests %}
+            <tr>
+                <td scope="row">{{ request.user.user_name }}</td>
+                <td>{{ request.book.name }} </td>
+                <td>{{ request.issue_date }}</td>
+                <td>{{ request.end_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if rejected_requests|length >0 %}
+    <div class="subheading">
+        Rejected:
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for request in rejected_requests %}
+            <tr>
+                <td scope="row">{{ request.user.user_name }}</td>
+                <td>{{ request.book.name }} </td>
+                <td>{{ request.issue_date }}</td>
+                <td>{{ request.end_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if revoked_requests|length >0 %}
+    <div class="subheading">
+        Revoked:
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for request in revoked_requests %}
+            <tr>
+                <td scope="row">{{ request.user.user_name }}</td>
+                <td>{{ request.book.name }} </td>
+                <td>{{ request.issue_date }}</td>
+                <td>{{ request.end_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
 </body>
 
 </html>

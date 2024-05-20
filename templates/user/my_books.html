@@ -1,2 +1,100 @@
-{% include "user/user_nav.html" %}
-My Books
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Books</title>
+</head>
+
+<body>
+    {% include "user/user_nav.html" %}
+    <div class="heading">
+        <h1>My Books</h1>
+    </div>
+    <div class="subheading">
+        Reading:
+    </div>
+    {% if reading|length >0 %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Issue Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Read</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for book in reading %}
+            <tr>
+                <td scope="row">{{ book.book.name }}</td>
+                <td>{{ book.issue_date }} </td>
+                <td>{{ book.end_date }} </td>
+                <td>{{ book.book.issue_time }} Days</td>
+                <td><a href="/read/{{ book.book.book_id }}"><button class="btn btn-primary">Read</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h5 class="sub-message">Not Reading any books currently</h5>
+    {% endif %}
+    <div class="subheading">
+        Completed:
+    </div>
+    {% if read|length >0 %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Issue Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for book in read %}
+            <tr>
+                <td scope="row">{{ book.book.name }}</td>
+                <td>{{ book.issue_date }} </td>
+                <td>{{ book.end_date }} </td>
+                <td>{{ book.book.issue_time }} Days</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h5 class="sub-message">Not Completed any books yet</h5>
+    {% endif %}
+    <div class="subheading">
+        Requested:
+    </div>
+    {% if requested|length >0 %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Issue Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for book in requested %}
+            <tr>
+                <td scope="row">{{ book.book.name }}</td>
+                <td>{{ book.issue_date }} </td>
+                <td>{{ book.end_date }} </td>
+                <td>{{ book.book.issue_time }} Days</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h5 class="sub-message">Not Requested any book</h5>
+    {% endif %}
+</body>
+
+</html>

@@ -10,36 +10,40 @@
 </head>
 
 <body>
-{% include "admin/admin_nav.html" %}
-
-    Section Management here
-
-
-    <table>
+    {% include "admin/admin_nav.html" %}
+    <div class="heading">
+        <h3>Section Management</h3>
+    </div>
+    <div class="add">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addSectionModal">
+            Add Section
+        </button>
+    </div>
+    <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Created Date</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th scope="col">Name</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for section in sections %}
             <tr>
-                <td>{{ section.name }}</td>
+                <td scope="row">{{ section.name }}</td>
                 <td> {{ section.created_date }} </td>
-                <td> <a href="/edit-section/{{section.section_id}}"><button>Edit</button> </a></td>
-                <td> <a href="/delete-section/{{section.section_id}}"><button>Delete</button> </a></td>
+                <td> <a href="/edit-section/{{section.section_id}}"><button class="btn btn-primary">Edit</button> </a>
+                </td>
+                <td> <a href="/delete-section/{{section.section_id}}"><button class="btn btn-danger">Delete</button>
+                    </a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSectionModal">
-        Add Section
-    </button>
+
 
 
     <!-- Modal -->
@@ -52,23 +56,34 @@
                 </div>
                 <form action="/add-section" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <label for="s_name">Name:</label>
-                        <input type="text" name="s_name" id=""><br>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="s_name" class="form-label">Name:</label>
+                                <input type="text" name="s_name" id="" class="form-control" placeholder="Enter Name"><br>
+                            </div>
+                            <div class="col-6">
+                                <label for="created_date" class="form-label">Created Date:</label>
+                                <input type="date" name="created_date" id="created_date" value="{{today_date}}"
+                                    disabled class="form-control"><br>
+                            </div>
+                        </div>
 
-                        <label for="created_date">Created Date:</label>
-                        <input type="date" name="created_date" id="created_date" value="{{today_date}}" disabled><br>
-
-                        <label for="s_desc">Decription:</label>
-                        <textarea type="text" name="s_desc" id="" rows="10"></textarea>
-
-                        <label for="image">Image:</label>
-                        <input type="file" name="image" id="image"><br>
-
-                        <!-- <button type="submit">Submit</button> -->
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="s_desc" class="form-label">Decription:</label>
+                                <textarea type="text" name="s_desc" id="" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="image" class="form-label">Image:</label>
+                                <input type="file" name="image" id="image" class="form-control">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Add Section</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Add Section</button>
                     </div>
                 </form>
             </div>
